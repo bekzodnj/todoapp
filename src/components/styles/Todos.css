@@ -1,0 +1,21 @@
+.wrap {
+  height: 340px;
+  overflow-y: scroll;
+  padding-right: 20px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(52, 140, 228);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(44, 125, 207);
+}

@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TodoItem from './TodoItem';
-const Todos = () => {
+import './styles/Todos.css';
+import { getTodos } from './../actions/todos';
+import { connect } from 'react-redux';
+//redux imports
+const Todos = ({ todos, getTodos }) => {
+  useEffect(() => {
+    getTodos();
+  }, [getTodos]);
+
+  //if not empty, render the TodoItem
   return (
-    <div>
-      <TodoItem />
+    <div className='wrap'>
+      {todos && todos.map((item) => <TodoItem key={item.id} todoData={item} />)}
     </div>
   );
 };
 
-export default Todos;
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+});
+
+export default connect(mapStateToProps, {
+  getTodos,
+})(Todos);
