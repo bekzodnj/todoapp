@@ -1,39 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Checkbox } from 'antd';
+
+import { Checkbox, Popconfirm, message, Button } from 'antd';
 
 //redux imports
 import { connect } from 'react-redux';
-import { getTodos } from './../actions/todos';
+import { getTodos, deleteTodo, updateTodo } from './../actions/todos';
 
 //style
 import './styles/TodoItem.css';
 
-const TodoItem = ({ getTodos, todoData }) => {
+const TodoItem = ({ todoData, updateTodo, deleteTodo }) => {
   const [isDone, setIsDone] = useState(false);
+
   useEffect(() => {
     getTodos();
-
     setIsDone(todoData.done);
-  }, [getTodos]);
+  }, [todoData.done]);
 
   function onChange(e) {
     setIsDone(e.target.checked);
   }
 
   function labelOnClick() {
-    setIsDone(!isDone);
+    updateTodo(todoData);
   }
 
+  // deletion handler of todo
+  function confirm(e) {
+    deleteTodo(todoData.id);
+    message.success('Task deleted');
+  }
+
+  /*
+     Single TodoItem (line) consist of:
+        - Todo Title
+        - CheckBox to move it to Done
+        - Deletion btn with confirm
+  */
   return (
-    <div className='todoItem' onClick={() => labelOnClick()}>
-      <label>{todoData.title}</label>
-      <Checkbox onChange={onChange} checked={isDone} />
+    <div
+      className=''
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <div className='todoItem' onClick={() => labelOnClick()}>
+        <div className={todoData.done ? 'doneItem' : 'itemText'}>
+          {todoData.title}
+        </div>
+        <Checkbox onChange={onChange} checked={isDone} />
+      </div>
+      <div>
+        <Popconfirm
+          title='Are you sure delete this task?'
+          onConfirm={confirm}
+          okText='Yes'
+          cancelText='No'
+        >
+          <Button size='small'>-</Button>
+        </Popconfirm>
+      </div>
     </div>
   );
 };
-
-TodoItem.propTypes = {};
 
 const mapStateToProps = (state) => ({
   todos: state.todos,
@@ -41,4 +72,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getTodos,
+  deleteTodo,
+  updateTodo,
 })(TodoItem);

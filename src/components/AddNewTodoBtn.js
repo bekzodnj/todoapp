@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Button, Drawer, Input, message } from 'antd';
 
 import './styles/AddNewTodoBtn.css';
-const AddNewTodoButton = () => {
+
+import { connect } from 'react-redux';
+import { createTodo } from './../actions/todos';
+
+const AddNewTodoButton = ({ createTodo }) => {
   // is drawer open, bool value for btn
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
@@ -19,8 +23,12 @@ const AddNewTodoButton = () => {
   // input todo handlers
   const handleSave = () => {
     success(inputValue);
+    createTodo(inputValue);
+    setIsDrawerVisible(false);
+    setInputValue('');
   };
 
+  //success message popup
   const success = (value) => {
     message.success('New todo created: ' + value);
   };
@@ -70,4 +78,6 @@ const AddNewTodoButton = () => {
   );
 };
 
-export default AddNewTodoButton;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { createTodo })(AddNewTodoButton);

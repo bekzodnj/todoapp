@@ -2,10 +2,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
   padding: 10px;
-
   cursor: pointer;
 }
+
 label {
   cursor: pointer;
+}
+
+.doneItem {
+  text-decoration: line-through;
+  color: rgb(58, 57, 57);
+  width: 150px;
+  word-break: break-word;
+}
+
+.itemText {
+  width: 150px;
+  word-break: break-word;
 }

@@ -9,6 +9,12 @@ import AddNewTodoButton from './components/AddNewTodoBtn';
 import { Provider } from 'react-redux';
 import store from './store';
 
+/*
+     Screen consist of 3 main part:
+        - Header
+        - Todos (parent for separate TodoItems)
+        - Add New Todo Button with drawer
+  */
 function App() {
   return (
     <Provider store={store}>

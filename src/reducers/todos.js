@@ -1,4 +1,4 @@
-import moduleName, {
+import {
   GET_TODOS,
   UPDATE_TODO,
   DELETE_TODO,
@@ -14,16 +14,39 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case CREATE_TODO:
-      return [...state, payload];
+      /*
+      Create new todo object
+      append to the sample array
+      */
+      const newItem = {
+        id: state.length,
+        title: payload,
+        pinned: false,
+        done: false,
+      };
+      return [...state, newItem];
 
     case GET_TODOS:
       return state;
 
     case UPDATE_TODO:
-      return state;
+      /*
+      Iterate over array, if found matching item
+      change `done`  property and return updated array
+      */
+      const updatedState = state.map((item) => {
+        if (item.id === payload.id) return { ...item, done: !item.done };
+        return item;
+      });
+      return updatedState;
 
     case DELETE_TODO:
-      return state;
+      /*
+      Iterate over array:
+      return all items except passed todo item
+      */
+      const newState = state.filter((item) => item.id !== payload);
+      return newState;
 
     default:
       return state;

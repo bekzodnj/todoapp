@@ -9,10 +9,28 @@ const Todos = ({ todos, getTodos }) => {
     getTodos();
   }, [getTodos]);
 
-  //if not empty, render the TodoItem
+  /*
+      First we're rendering, unfinished todos (!done)
+      Then, finished todos (done)
+      Finally, if todos array is empty show some text
+  */
   return (
     <div className='wrap'>
-      {todos && todos.map((item) => <TodoItem key={item.id} todoData={item} />)}
+      {todos &&
+        todos
+          .slice(0)
+          .reverse()
+          .map(
+            (item) => !item.done && <TodoItem key={item.id} todoData={item} />
+          )}
+      {todos &&
+        todos
+          .slice(0)
+          .reverse()
+          .map(
+            (item) => item.done && <TodoItem key={item.id} todoData={item} />
+          )}
+      {todos.length === 0 ? 'You are done for today :)' : ''}
     </div>
   );
 };
