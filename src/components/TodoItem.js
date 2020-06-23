@@ -25,9 +25,9 @@ const TodoItem = ({ todoData, updateTodo, deleteTodo }) => {
     updateTodo(todoData);
   }
 
-  // deletion handler of todo
+  // deletion confirm
   function confirm(e) {
-    deleteTodo(todoData.id);
+    deleteTodo(todoData);
     message.success('Task deleted');
   }
 

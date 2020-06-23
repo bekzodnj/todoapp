@@ -18,13 +18,8 @@ export default function (state = initialState, action) {
       Create new todo object
       append to the sample array
       */
-      const newItem = {
-        id: state.length,
-        title: payload,
-        pinned: false,
-        done: false,
-      };
-      return [...state, newItem];
+
+      return [...state, payload];
 
     case GET_TODOS:
       return state;
@@ -45,7 +40,7 @@ export default function (state = initialState, action) {
       Iterate over array:
       return all items except passed todo item
       */
-      const newState = state.filter((item) => item.id !== payload);
+      const newState = state.filter((item) => item.id !== payload.id);
       return newState;
 
     default:
