@@ -3,6 +3,8 @@ import TodoItem from './TodoItem';
 import './styles/Todos.css';
 import { getTodos } from './../actions/todos';
 import { connect } from 'react-redux';
+
+import { CSSTransition } from 'react-transition-group';
 //redux imports
 const Todos = ({ todos, getTodos }) => {
   useEffect(() => {
